@@ -13,11 +13,11 @@
                 getMethods: getMethods
             };
 
-            function resolve(methods, input, callback) {
+            function resolve(method, input, callback) {
                 var methods_factory = $methods;
                 for (var i = 0; i < methods_factory.length; i++) {
-                    if (methods.module === methods_factory[i].name) {
-                        eval(methods_factory[i].factory).options(input, methods.sub).then(function(data) {
+                    if (method.name === methods_factory[i].name) {
+                        eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
                             var html = data[1];
                             html.resolve = routeLib + html.resolve;
                             html.graphics = routeLib + html.graphics;

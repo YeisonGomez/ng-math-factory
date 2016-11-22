@@ -2,7 +2,7 @@
   "name": "ng-math-factory",
   "homepage": "https://github.com/YeisonGomez/ng-math-factory",
   "description": "Soluciones matematicas con Angularjs",
-  "main": "math_factory.js",
+  "main": "dist/ng-math-factory.js",
   "authors": [
     "Yeison Gomez"
   ],

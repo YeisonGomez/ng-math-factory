@@ -13,15 +13,113 @@ Esta acción es para agregarla como dependencia en el archivo ```bower.json```.
 La libreria JavaScript debe agregarse en el **index.html** de tu proyecto:
 
 ```javascript
-	<script src="../ng-math-factory/dist/ng-math-factory.min.js"></script>
+<script src="../ng-math-factory/dist/ng-math-factory.min.js"></script>
 ```
 
-### Injecting:
+### Inyectando:
 
-Ahora debe inyectar la lobreria en su módulo **app.js**:
+Ahora debe inyectar la libreria en su módulo **app.js**:
 
 ```
-	angular.module('myapp', ['ng-math-factory'])
+var app = angular.module('myapp', ['ng-math-factory']);
+```
+
+## Uso #
+
+**Paso 1. Obtener métodos**
+
+```javascript
+app.controller('appCtrl', function($scope, $math) {
+    $scope.methods = $math.getMethods();
+
+	//Función para obtener el metodo seleccionado.
+    $scope.selectMethod = function(module, sub){
+		$scope.method_current = { name: module, sub: sub };
+		if(sub.in == "formula"){
+			//Obtener un String con la formula a resolver
+		}else if(sub.in == "xy"){
+			//Obtener un arreglo de JSON especificado en la descripción de **in**
+		}
+    }
+});
+```
+
+De esta forma se obtiene los métodos que proporciona ng-math-factory, para luego listarlos en tu aplicación.
+Los datos se obtiene en formato JSON con esta estructura:
+
+```javascript
+[{
+    name: 'example',
+    sub: [
+        { name: 'Sumar', in : 'formula' },
+        { name: 'Restar', in : 'formula' },
+        { name: 'Multiplicar', in : 'formula' }
+    ],
+    factory: 'exampleFactory'
+}]
+```
+
+## in #
+
+Es el tipo de entrada que se va utilizar:
+
+**1. formula:** Se define que el método solicita un string con una formula a resolver. ("3 + 4 - 6 * 5 / 2")
+**2. xy:** Se define que el método espera un arreglo de JSON's de esta forma:
+
+```javascript
+[
+	{x: 1, y 2},
+	{x: 3, y 4},
+	{x: 5, y 6}
+]
+```
+
+**Paso 3. Renderizar métodos**
+
+```html
+<div ng-repeat="module in methods">
+	<h3>{{module.name}}</h3>
+	<button ng-repeat="sub in module" ng-click="selectMethod(module.name, sub)">{{sub.name}}</button>
+</div>
+```
+
+Utilizamos la función para seleccionar el método a utilizar.
+
+**Paso 3. Resolver**
+
+```javascript
+app.controller('appCtrl', function($scope, $math) {
+
+	//input son los datos que solicita el método actual.
+    $scope.solution = function(input) {
+        $math.resolve($scope.method_current, input, function(data, html) {
+            $scope.resolveHTML = html.resolve;
+            $scope.resolveGraphics = html.graphics;
+            $scope.solveProblem = data;
+        });
+    }
+});
+```
+
+El metodo **resolve** de la factoria $math retorna 2 objetos:
+
+##### Retorna
+
+- **data** - Es la solución de la formula solicitada en forma de JSON.
+- **html** - Es un JSON con dos rutas de un archivo html con la respuesta ya renderizada, ejemplo:
+
+```javascript
+{
+	resolve: "lib/math/src/example_module/view_example_module.html",
+	graphics: "lib/math/src/example_module/view_graphics.html"
+}
+```
+
+**Paso 4. Renderizar la respuesta**
+
+```html
+<div ng-include src="resolveHTML"></div>
+<div ng-include src="resolveGraphics"></div>
 ```
 
 # Contribuir #
