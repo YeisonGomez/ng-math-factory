@@ -63,7 +63,7 @@ Los datos se obtiene en formato JSON con esta estructura:
 
 Es el tipo de entrada que se va utilizar:
 
-**1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").
+**1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").</br>
 **2. xy:** Se define que el método espera un arreglo de JSON de esta forma:
 
 ```javascript
@@ -165,7 +165,7 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 
 Es el tipo de entrada que se va utilizar:
 
-**1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").
+**1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").</br>
 **2. xy:** Se define que el método espera un arreglo de JSON de esta forma:
 
 ```javascript
@@ -174,6 +174,7 @@ Es el tipo de entrada que se va utilizar:
 	{x: 3, y 4},
 	{x: 5, y 6}
 ]
+```
 
 **Paso 3. Crear mi factoria**
 
