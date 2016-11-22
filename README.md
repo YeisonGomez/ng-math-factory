@@ -148,14 +148,16 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 		        name: "Ajuste de curvas",
 		        sub: [
 		            { name: "Mínimos cuadrados", in : "xy" }
-		        ]
+		        ],
+		        factory: "adjustCurve"
 		    },
 			{
 				name: "mi_nuevo_modulo",
 				sub: [
 					{name: "Sumar", in: "formula"}
 					{name: "Restar", in: "formula"}
-				]
+				],
+				factory: "miNuevoModulo"
 			}
 		]
 	});

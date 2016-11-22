@@ -7,7 +7,7 @@
             'math.methods',
             'math.adjust-curve'
         ])
-        .factory('$math', function($q, $methods, adjustCurve) {
+        .factory('$math', ['$q', '$methods', 'adjustCurve', function($q, $methods, adjustCurve) {
             return {
                 resolve: resolve,
                 getMethods: getMethods
@@ -31,5 +31,5 @@
             function getMethods() {
                 return $methods;
             }
-        });
+        }]);
 })();
