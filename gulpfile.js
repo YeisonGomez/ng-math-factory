@@ -18,4 +18,4 @@ gulp.task('minify', function() {
         .pipe(gulp.dest('dist/'))
 });
 
-gulp.watch(['src/**/*.js', 'src/*.js'], ['build']);
+gulp.watch(['src/**/*.js', 'src/*.js'], ['minify', 'build']);
