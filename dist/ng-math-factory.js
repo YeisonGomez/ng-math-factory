@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var routeLib = "/js/math";
+    var routeLib = "/lib/math";
 
     angular.module('ng-math-factory', [
             'math.methods',
