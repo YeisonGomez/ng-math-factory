@@ -1,0 +1,40 @@
+<table summary="Tabla Solución" class="normal width-90pc margin-left-5pc">
+    <tr ng-class="{ 'bold cursive bck-blue2 color-white': $first }" ng-repeat="solve in solveProblem.solveTable">
+        <th scope="col">{{solve.x}}</th>
+        <th scope="col">{{solve.y}}</th>
+        <th scope="col">{{solve.a}}</th>
+        <th scope="col">{{solve.b}}</th>
+        <th scope="col">{{solve.c}}</th>
+        <th scope="col">{{solve.d}}</th>
+    </tr>
+</table>
+<br>
+<br>
+<table class="normal width-90pc margin-left-5pc">
+    <tr ng-repeat="sum in solveProblem.solveSum">
+        <th class="bold cursive bck-blue2 color-white width-40pc" scope="col">{{sum.symbol}}</th>
+        <th scope="col">{{sum.value}}</th>
+    </tr>
+</table>
+<br>
+<table ng-if="solveProblem.solveAB[0] != undefined" class="normal width-90pc margin-left-5pc">
+    <tr>
+        <th class="bold cursive bck-blue2 color-white width-40pc" scope="col">a</th>
+        <th scope="col">{{solveProblem.solveAB[0]}}</th>
+    </tr>
+    <tr>
+        <th class="bold cursive bck-blue2 color-white width-40pc" scope="col">b</th>
+        <th scope="col">{{solveProblem.solveAB[1]}}</th>
+    </tr>
+    <tr></tr>
+    <tr>
+        <th class="bold cursive bck-blue2 color-white width-40pc" scope="col">Valor para X</th>
+        <th scope="col">
+            <input type="number" ng-model="valY" placeholder="X" style="max-width: inherit;">
+        </th>
+    </tr>
+    <tr>
+        <th class="bold cursive bck-blue2 color-white width-40pc" scope="col">Y</th>
+        <th scope="col" ng-class="{'color-white': valY == NaN}">{{solveProblem.solveAB[0]+(solveProblem.solveAB[1]*valY)}}</th>
+    </tr>
+</table>

@@ -1,0 +1,26 @@
+{
+  "name": "ng-math-factory",
+  "version": "1.0.0",
+  "description": "Soluciones matematicas con Angularjs",
+  "main": "dist/ng-math-factory.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YeisonGomez/ng-math-factory.git"
+  },
+  "author": "Yeison Gomez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YeisonGomez/ng-math-factory/issues"
+  },
+  "homepage": "https://github.com/YeisonGomez/ng-math-factory#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-uglify": "^2.0.0",
+    "jshint": "^2.8.0"
+  }
+}
