@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var routeLib = "/lib/math";
+    var routeLib = "/ng-math-factory/src";
 
     angular.module('ng-math-factory', [
             'math.methods',
@@ -13,14 +13,14 @@
                 getMethods: getMethods
             };
 
-            function resolve(method, input, callback) {
+            function resolve(method, input, routeDep, callback) {
                 var methods_factory = $methods;
                 for (var i = 0; i < methods_factory.length; i++) {
                     if (method.name === methods_factory[i].name) {
                         eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
                             var html = data[1];
-                            html.resolve = routeLib + html.resolve;
-                            html.graphics = routeLib + html.graphics;
+                            html.resolve = routeDep + routeLib + html.resolve;
+                            html.graphics = routeDep + routeLib + html.graphics;
                             callback(data[0], html);
                         });
                         break;
@@ -71,8 +71,8 @@
                 options: function(input, sub_module) {
                     var deferred = $q.defer();
                     var html = {
-                        resolve: "/src/adjust_curve/view_adjust_curve.html",
-                        graphics: "/src/adjust_curve/view_graphics.html"
+                        resolve: "/adjust_curve/view_adjust_curve.html",
+                        graphics: "/adjust_curve/view_graphics.html"
                     };
 
                     if (sub_module == "Mínimos cuadrados") {

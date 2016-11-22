@@ -7,8 +7,8 @@
                 options: function(input, sub_module) {
                     var deferred = $q.defer();
                     var html = {
-                        resolve: "/src/adjust_curve/view_adjust_curve.html",
-                        graphics: "/src/adjust_curve/view_graphics.html"
+                        resolve: "/adjust_curve/view_adjust_curve.html",
+                        graphics: "/adjust_curve/view_graphics.html"
                     };
 
                     if (sub_module == "Mínimos cuadrados") {
