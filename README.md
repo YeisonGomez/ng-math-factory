@@ -34,7 +34,7 @@ app.controller('appCtrl', function($scope, $math) {
 
 	//Función para obtener el metodo seleccionado.
     $scope.selectMethod = function(module, sub){
-		$scope.method_current = { name: module, sub: sub };
+		$scope.method_current = { name: module, sub: sub.name };
 		if(sub.in == "formula"){
 			//Obtener un String con la formula a resolver
 		}else if(sub.in == "xy"){
@@ -92,7 +92,7 @@ app.controller('appCtrl', function($scope, $math) {
 
 	//input son los datos que solicita el método actual.
     $scope.solution = function(input) {
-        $math.resolve($scope.method_current, input, function(data, html) {
+        $math.resolve($scope.method_current, input, "/bower_components", function(data, html) {
             $scope.resolveHTML = html.resolve;
             $scope.resolveGraphics = html.graphics;
             $scope.solveProblem = data;
@@ -100,6 +100,16 @@ app.controller('appCtrl', function($scope, $math) {
     }
 });
 ```
+
+**$scope.method_current** es el método actualmente seleccionado:
+
+```javascript
+{ name: "mi_nuevo_modulo", sub: "Sumar" }
+```
+
+**input** es el String que se solicita al usuario.
+
+**"/bower_components"** es la ruta donde esta ng-math-factory actualmente.
 
 El metodo **resolve** de la factoria $math retorna 2 objetos:
 
