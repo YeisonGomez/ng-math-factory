@@ -74,7 +74,7 @@ Es el tipo de entrada que se va utilizar:
 ]
 ```
 
-**Paso 3. Renderizar métodos**
+**Paso 2. Renderizar métodos**
 
 ```html
 <div ng-repeat="module in methods">
@@ -90,7 +90,6 @@ Utilizamos la función para seleccionar el método a utilizar.
 ```javascript
 app.controller('appCtrl', function($scope, $math) {
 
-	//input son los datos que solicita el método actual.
     $scope.solution = function(input) {
         $math.resolve($scope.method_current, input, "/bower_components", function(data, html) {
             $scope.resolveHTML = html.resolve;
@@ -107,9 +106,9 @@ app.controller('appCtrl', function($scope, $math) {
 { name: "mi_nuevo_modulo", sub: "Sumar" }
 ```
 
-**input** es el String que se solicita al usuario.
+**input** son los datos que solicita el método actual.
 
-**"/bower_components"** es la ruta donde esta ng-math-factory actualmente.
+**"/bower_components"** es la ruta donde esta la libreria ng-math-factory actualmente.
 
 El metodo **resolve** de la factoria $math retorna 2 objetos:
 
