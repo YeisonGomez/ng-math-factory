@@ -3,7 +3,7 @@
 
     angular.module('math.methods', []).factory("$methods", function() {
         return [{
-            name: 'AJ de curvas',
+            name: 'Ajuste de curvas',
             sub: [
                 { name: 'Mínimos cuadrados', in : 'xy' },
                 { name: 'Interpolación lineal', in : 'xy' }
