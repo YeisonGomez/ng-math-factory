@@ -7,6 +7,7 @@ ng-math-factory es una libreria que soluciona problemas matemáticos con [Angula
 -  [Uso](#uso)
 -  [Contribuir](#contribuir)
 -  [Agregar gráfica](#agregar-gráfica-con-highcharts-ng)
+-  [Probar y depurar código](#probar-y-depurar-código-con-gulp)
 
 ## Instalación #
 
@@ -283,7 +284,7 @@ function add(input) {
 
 **Nota:** solveProblem no puede ser editado
 
-**Paso 6. Gulp**
+# Probar y depurar código con gulp #
 
 Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe hacer:
 
