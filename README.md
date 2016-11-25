@@ -5,8 +5,8 @@ ng-math-factory es una libreria que soluciona problemas matemáticos con [Angula
 -  [Instalación](#instalación)
 -  [Inyectando](#inyectando)
 -  [Uso](#uso)
--  [Contribuir](contribuir)
--  [Agregar gráfica](agregar-gráfica-con-highcharts-ng)
+-  [Contribuir](#contribuir)
+-  [Agregar gráfica](#agregar-gráfica-con-highcharts-ng)
 
 ## Instalación #
 
