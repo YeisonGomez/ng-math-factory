@@ -282,3 +282,15 @@ function add(input) {
 ```
 
 **Nota:** solveProblem no puede ser editado
+
+**Paso 6. Gulp**
+
+Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe hacer:
+
+```bash
+$ gulp minify
+```
+
+El comando quedara escuchando los cambios que se hagan en los scripts de la libreria. 
+
+**Nota:** Correr el demo con ionic serve para que escuche los cambios en la libreria.
