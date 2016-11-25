@@ -2,6 +2,12 @@
 
 ng-math-factory es una libreria que soluciona problemas matemáticos con [AngularJS](https://angularjs.org/).
 
+-  [Instalación](#instalación)
+-  [Inyectando](#inyectando)
+-  [Uso](#uso)
+-  [Contribuir](contribuir)
+-  [Agregar gráfica](agregar-gráfica-con-highcharts-ng)
+
 ## Instalación #
 
 ```bash
@@ -16,7 +22,7 @@ La libreria JavaScript debe agregarse en el **index.html** de tu proyecto:
 <script src="../ng-math-factory/dist/ng-math-factory.min.js"></script>
 ```
 
-### Inyectando:
+### Inyectando: #
 
 Ahora debe inyectar la libreria en su módulo **app.js**:
 
@@ -133,6 +139,8 @@ El metodo **resolve** de la factoria $math retorna 2 objetos:
 
 # Contribuir #
 Para contribuir y agregar nuevos modulos a ng-math-factory, debes tener conceptos basicos de Angular 1 y highcharts-ng. Siguiendo unos cuantos pasos la implementación de un nuevo modulo sera muy sencillo y funcional. 
+
+Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ionic-methods-numerals), modificando la libreria y la aplicación automaticamente tomara la actualización corriendola en local.
 
 **Paso 1. Adjuntar mi_nuevo_modulo**
 
