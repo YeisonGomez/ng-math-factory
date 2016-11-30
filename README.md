@@ -145,17 +145,17 @@ Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ioni
 
 **Paso 1. Adjuntar mi_nuevo_modulo**
 
-- En el editor de código ubicarse en: /ng-math-factory/src/
-- Crear una carpeta con el nombre del nuevo módulo: /ng-math-factory/src/mi_nuevo_modulo/
+- En el editor de código ubicarse en: **/ng-math-factory/src/**
+- Crear una carpeta con el nombre del nuevo módulo: **/ng-math-factory/src/mi_nuevo_modulo/**
 - Dentro del nuevo módulo crear 3 archivos, ejemplo: 
-	- mi_nuevo_modulo.js
-	- view_mi_nuevo_modulo.html
-	- view_graphics.html (Procurar no editar el nombre) //Opcional
-	- readme //recomendado
+	- **mi_nuevo_modulo.js**
+	- view_mi_nuevo_modulo.html**
+	- **view_graphics.html (Procurar no editar el nombre)** //Opcional
+	- **readme** //recomendado
 
 **Paso 2. Hacer push**
 
-En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
+En **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modulos.
 
 ```javascript
 (function() {
@@ -176,7 +176,7 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 				name: "mi_nuevo_modulo",
 				sub: [
 					{name: 'Sumar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
-					{name: 'Restar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
+					{name: 'Restar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/restar.html'}
 				],
 				factory: "miNuevoModulo",
 				libs: [ /*Opcional*/
@@ -200,7 +200,7 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 ]
 ```
 
-**readme:** Una breve explicaión y ejemplo del método selecionado.
+**readme:** Ruta del archivo html con una breve explicación y ejemplo del método selecionado.
 
 **Paso 3. Crear mi factoria**
 
@@ -236,7 +236,8 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
 		function substract(input){
 			return metodo_libreria(input);
 		}
-});
+	});
+})();
 ```
 
 **Nota:** Para el uso de una dependencia más, deben agregar el script dentro de la carpeta lib, que previamente debe ser creada dentro del nuevo módulo.
@@ -251,6 +252,11 @@ angular.module('ng-math-factory',
     'math.methods',
     'math.mi-nuevo-modulo'
 ])
+.factory('$math', [
+            '$q', '$methods', 'adjustCurve', 'miNuevoModulo'
+            function($q, $methods, adjustCurve, miNuevoModulo) {
+            	//No editar
+            }]);
 ```
 
 **Paso 5. Respuesta**

@@ -21,13 +21,14 @@
             ],
             factory: 'adjustCurve'
         }, {
-            name: '5 Métodos',
+            name: 'Búsqueda de raíces',
             sub: [
-                { name: 'Punto fijo', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
-                { name: 'Bisección', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
-                { name: 'Newton Raphson', in : 'formula' },
-                { name: 'Regla falsa', in : 'formula' }
-            ]
+                { name: 'Punto fijo', in : 'formula', readme: routeLib + '/search_raiz/readme/point_fixed.html' },
+                { name: 'Bisección', in : 'formula', readme: routeLib + '/search_raiz/readme/bisection.html' },
+                { name: 'Newton Raphson', in : 'formula', readme: routeLib + '/search_raiz/readme/newton.html' },
+                { name: 'Regla falsa', in : 'formula', readme: routeLib + '/search_raiz/readme/rule_false.html' }
+            ],
+            factory: 'searchRaiz'
         }];
     });
 })();
