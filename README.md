@@ -150,7 +150,8 @@ Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ioni
 - Dentro del nuevo módulo crear 3 archivos, ejemplo: 
 	- mi_nuevo_modulo.js
 	- view_mi_nuevo_modulo.html
-	- view_graphics.html (Procurar no editar el nombre)
+	- view_graphics.html (Procurar no editar el nombre) //Opcional
+	- readme //recomendado
 
 **Paso 2. Hacer push**
 
@@ -161,6 +162,8 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 'use strict';
 
     angular.module('math.methods', []).factory("$methods", function() {
+    	var routeLib = "/ng-math-factory/src";
+
 		return [
 			{
 		        name: "Ajuste de curvas",
@@ -172,8 +175,8 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 			{
 				name: "mi_nuevo_modulo",
 				sub: [
-					{name: "Sumar", in: "formula"}
-					{name: "Restar", in: "formula"}
+					{name: 'Sumar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
+					{name: 'Restar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
 				],
 				factory: "miNuevoModulo",
 				libs: [ /*Opcional*/
@@ -185,7 +188,6 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 })();
 ```
 **in**
-
 Es el tipo de entrada que se va utilizar:
 
 **1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").</br>
@@ -198,6 +200,9 @@ Es el tipo de entrada que se va utilizar:
 	{x: 5, y: 6}
 ]
 ```
+
+**readme**
+Una breve explicaión y ejemplo del método selecionado (recomendado para el in: formula).
 
 **Paso 3. Crear mi factoria**
 
@@ -250,7 +255,7 @@ angular.module('ng-math-factory',
 ])
 ```
 
-**Paso 5. Renderizar la vista**
+**Paso 5. Respuesta**
 
 La solución en pantalla para el usuario es editable por el contributor. Para personalizar la vista y mostrar la solución del nuevo módulo se debe agregar en 
 "/ng-math-factory/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html"
@@ -261,6 +266,16 @@ La solución en pantalla para el usuario es editable por el contributor. Para pe
 ```
 
 **Nota:** solveProblem es la variable que contiene la respuesta del script proporcionado por el contributor **(no puede ser editable)**.
+
+**Paso 6. README**
+
+Los métodos ofrecidos en el nuevo modulo, deben tener una breve explicación del método y un ejemplo de la formula que se solicita al usuario. El archivo se solicita como un HTML agregado dentro de la carpeta **/mi_nuevo_modulo/readme/**, se recomienda tener un archivo readme por cada método del modulo.
+
+```html
+<p>Este método se utiliza para sumar, restar, multiplicar, y dividir</p>
+<h2>Ejemplo:</h2>
+<p>2 - 4 + 5</p>
+```
 
 #Agregar gráfica con [highcharts-ng](https://github.com/pablojim/highcharts-ng)#
 

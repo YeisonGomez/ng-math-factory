@@ -2,11 +2,12 @@
     'use strict';
 
     angular.module('math.methods', []).factory("$methods", function() {
+        var routeLib = "/ng-math-factory/src";
         return [{
             name: 'General',
             sub: [
-                { name: 'Operación basica', in : 'formula' },
-                { name: 'Derivar', in : 'formula' }
+                { name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' },
+                { name: 'Derivar', in : 'formula', readme: routeLib + '/general/readme/derive.html' }
             ],
             factory: 'general',
             libs: [
@@ -22,15 +23,10 @@
         }, {
             name: '5 Métodos',
             sub: [
-                { name: 'Punto fijo', in : 'formula' },
-                { name: 'Bisección', in : 'formula' },
+                { name: 'Punto fijo', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
+                { name: 'Bisección', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
                 { name: 'Newton Raphson', in : 'formula' },
                 { name: 'Regla falsa', in : 'formula' }
-            ]
-        }, {
-            name: 'Matriz',
-            sub: [
-                { name: 'Gauss Jordan', in : 'matriz' }
             ]
         }];
     });

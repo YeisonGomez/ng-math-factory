@@ -20,9 +20,14 @@
                     var methods_factory = $methods;
                     for (var i = 0; i < methods_factory.length; i++) {
                         if (method.name === methods_factory[i].name) {
-                            if(methods_factory[i].libs !== undefined){ 
+                            if (methods_factory[i].libs !== undefined) {
                                 for (var k = 0; k < methods_factory[i].libs.length; k++) {
-                                    addLibs(methods_factory[i].libs[k]);
+                                    var oHead = document.getElementsByTagName('head')[0];
+                                    var oScript = document.createElement('script');
+                                    oScript.type = 'text/javascript';
+                                    oScript.charset = 'utf-8';
+                                    oScript.src = routeDep + routeLib + methods_factory[i].libs[k];
+                                    oHead.appendChild(oScript);
                                 }
                             }
                             eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
@@ -39,15 +44,6 @@
                 function getMethods() {
                     return $methods;
                 }
-
-                var addLibs = function(lib) {
-                    var oHead = document.getElementsByTagName('head')[0];
-                    var oScript = document.createElement('script');
-                    oScript.type = 'text/javascript';
-                    oScript.charset = 'utf-8';
-                    oScript.src = routeDep + routeLib + lib;
-                    oHead.appendChild(oScript);
-                };
             }
         ]);
 })();
@@ -56,11 +52,12 @@
     'use strict';
 
     angular.module('math.methods', []).factory("$methods", function() {
+        var routeLib = "/ng-math-factory/src";
         return [{
             name: 'General',
             sub: [
-                { name: 'Operación basica', in : 'formula' },
-                { name: 'Derivar', in : 'formula' }
+                { name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' },
+                { name: 'Derivar', in : 'formula', readme: routeLib + '/general/readme/derive.html' }
             ],
             factory: 'general',
             libs: [
@@ -76,15 +73,10 @@
         }, {
             name: '5 Métodos',
             sub: [
-                { name: 'Punto fijo', in : 'formula' },
-                { name: 'Bisección', in : 'formula' },
+                { name: 'Punto fijo', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
+                { name: 'Bisección', in : 'formula', readme: '2x^2+3x+3; x1; x2; Iteraciones' },
                 { name: 'Newton Raphson', in : 'formula' },
                 { name: 'Regla falsa', in : 'formula' }
-            ]
-        }, {
-            name: 'Matriz',
-            sub: [
-                { name: 'Gauss Jordan', in : 'matriz' }
             ]
         }];
     });
