@@ -286,7 +286,7 @@ function add(input) {
 
 # Probar y depurar código con gulp #
 
-Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe hacer:
+Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe modificar directamente la libreria desde la carpeta **/www/lib/ng-math-factory/src** y acceder desde la terminal, luego ejecutar:
 
 ```bash
 $ gulp minify

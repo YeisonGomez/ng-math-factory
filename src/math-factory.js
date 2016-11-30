@@ -5,31 +5,44 @@
 
     angular.module('ng-math-factory', [
             'math.methods',
+            'math.general',
             'math.adjust-curve'
         ])
-        .factory('$math', ['$q', '$methods', 'adjustCurve', function($q, $methods, adjustCurve) {
-            return {
-                resolve: resolve,
-                getMethods: getMethods
-            };
+        .factory('$math', [
+            '$q', '$methods', 'adjustCurve', 'general',
+            function($q, $methods, adjustCurve, general) {
+                return {
+                    resolve: resolve,
+                    getMethods: getMethods
+                };
 
-            function resolve(method, input, routeDep, callback) {
-                var methods_factory = $methods;
-                for (var i = 0; i < methods_factory.length; i++) {
-                    if (method.name === methods_factory[i].name) {
-                        eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
-                            var html = data[1];
-                            html.resolve = routeDep + routeLib + html.resolve;
-                            html.graphics = routeDep + routeLib + html.graphics;
-                            callback(data[0], html);
-                        });
-                        break;
+                function resolve(method, input, routeDep, callback) {
+                    var addLibs = function(lib) {
+                        var oHead = document.getElementsByTagName('head')[0];
+                        var oScript = document.createElement('script');
+                        oScript.type = 'text/javascript';
+                        oScript.charset = 'utf-8';
+                        oScript.src = routeDep + routeLib + lib;
+                        oHead.appendChild(oScript);
+                    };
+
+                    var methods_factory = $methods;
+                    for (var i = 0; i < methods_factory.length; i++) {
+                        if (method.name === methods_factory[i].name) {
+                            eval(methods_factory[i].factory).options(input, method.sub, addLibs).then(function(data) {
+                                var html = data[1];
+                                html.resolve = routeDep + routeLib + html.resolve;
+                                html.graphics = (html.graphics === undefined) ? undefined : routeDep + routeLib + html.graphics;
+                                callback(data[0], html);
+                            });
+                            break;
+                        }
                     }
                 }
-            }
 
-            function getMethods() {
-                return $methods;
+                function getMethods() {
+                    return $methods;
+                }
             }
-        }]);
+        ]);
 })();

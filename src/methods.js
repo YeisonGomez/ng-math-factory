@@ -1,8 +1,15 @@
 (function() {
-	'use strict';
+    'use strict';
 
     angular.module('math.methods', []).factory("$methods", function() {
-        return [{
+        return [
+        {
+            name: 'General',
+            sub: [
+                { name: 'Operación basica', in : 'formula'},
+                { name: 'Derivar', in : 'formula'}
+            ], factory : 'general'
+        }, {
             name: 'Ajuste de curvas',
             sub: [
                 { name: 'Mínimos cuadrados', in : 'xy' },
