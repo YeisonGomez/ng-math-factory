@@ -167,7 +167,7 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 		        sub: [
 		            { name: "Mínimos cuadrados", in : "xy" }
 		        ],
-		        factory: "adjustCurve"
+		        factory: "adjustCurve"		        
 		    },
 			{
 				name: "mi_nuevo_modulo",
@@ -175,7 +175,10 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 					{name: "Sumar", in: "formula"}
 					{name: "Restar", in: "formula"}
 				],
-				factory: "miNuevoModulo"
+				factory: "miNuevoModulo",
+				libs: [ /*Opcional*/
+		        	'/mi_nuevo_modulo/lib/libreria.js'
+		        ]
 			}
 		]
 	});
@@ -211,9 +214,6 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
                     resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
                     graphics: "/src/mi_nuevo_modulo/view_graphics.html" //Opcional
                 };
-
-                //Librerias agregadas
-                libs('/mi_nuevo_modulo/lib/libreria.js'); //Opcional
 
                 if (sub_module == "Sumar") {
                     deferred.resolve([add(input), html]);
@@ -271,7 +271,7 @@ Para agregar una grafica se debe llevar a cabo en la respuesta del script, ejemp
 ```javascript
 function add(input) {
 	var solution = {
-		problem: eval(input),
+		problem: metodo_libreria(input),
 		miGrafica: []
 	};
 
@@ -287,7 +287,7 @@ function add(input) {
 <highchart id="chart1" config="solveProblem.miGrafica"></highchart>
 ```
 
-**Nota:** solveProblem no puede ser editado
+**Nota:** solveProblem no es editable.
 
 # Probar y depurar código con gulp #
 
@@ -299,4 +299,4 @@ $ gulp minify
 
 El comando quedara escuchando los cambios que se hagan en los scripts de la librería. 
 
-**Nota:** Correr el demo con ionic serve para que escuche los cambios en la librería.
+**Nota:** Correr el demo con **ionic serve**, y refrescar la página cuando hay cambios en la librería.

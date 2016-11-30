@@ -4,14 +4,12 @@
         .factory('general', ['$q', function($q) {
 
             return {
-                options: function(input, sub_module, libs) {
+                options: function(input, sub_module) {
                     var deferred = $q.defer();
                     var html = {
                         resolve: "/general/view_general.html"
                             //graphics: "/adjust_curve/view_graphics.html"
                     };
-
-                    libs('/general/lib/derive.js');
 
                     if (sub_module == "Operación basica") {
                         deferred.resolve([op_basic(input), html]);
