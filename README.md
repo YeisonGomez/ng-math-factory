@@ -149,7 +149,7 @@ Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ioni
 - Crear una carpeta con el nombre del nuevo módulo: **/ng-math-factory/src/mi_nuevo_modulo/**
 - Dentro del nuevo módulo crear 3 archivos, ejemplo: 
 	- **mi_nuevo_modulo.js**
-	- view_mi_nuevo_modulo.html**
+	- **view_mi_nuevo_modulo.html**
 	- **view_graphics.html (Procurar no editar el nombre)** //Opcional
 	- **readme** //recomendado
 
@@ -214,8 +214,8 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
             options: function(input, sub_module) {
                 var deferred = $q.defer();
                 var html = {
-                    resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
-                    graphics: "/src/mi_nuevo_modulo/view_graphics.html" //Opcional
+                    resolve: "/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
+                    graphics: "/mi_nuevo_modulo/view_graphics.html" //Opcional
                 };
 
                 if (sub_module == "Sumar") {
@@ -253,7 +253,7 @@ angular.module('ng-math-factory',
     'math.mi-nuevo-modulo'
 ])
 .factory('$math', [
-            '$q', '$methods', 'adjustCurve', 'miNuevoModulo'
+            '$q', '$methods', 'adjustCurve', 'miNuevoModulo',
             function($q, $methods, adjustCurve, miNuevoModulo) {
             	//No editar
             }]);
