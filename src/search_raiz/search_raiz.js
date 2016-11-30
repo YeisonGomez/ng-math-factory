@@ -88,7 +88,6 @@
         function replaceValues(funcion, x) {
             funcion = replaceOthers(funcion, "pow");
             funcion = replaceOthers(funcion, "x", x);
-            console.log(funcion);
             return eval(funcion);
         }
 
