@@ -1,6 +1,6 @@
 # ng-math-factory
 
-ng-math-factory es una libreria que soluciona problemas matemáticos con [AngularJS](https://angularjs.org/).
+ng-math-factory es una librería que soluciona problemas matemáticos con [AngularJS](https://angularjs.org/).
 
 -  [Instalación](#instalación)
 -  [Inyectando](#inyectando)
@@ -15,9 +15,9 @@ ng-math-factory es una libreria que soluciona problemas matemáticos con [Angula
 $ bower install ng-math-factory --save
 ```
 
-Esta acción es para agregarla como dependencia en el archivo ```bower.json```.
+Esta acción ( --save ) es para agregarla como dependencia en el archivo ```bower.json```.
 
-La libreria JavaScript debe agregarse en el **index.html** de tu proyecto:
+La librería JavaScript debe agregarse en el **index.html** de tu proyecto:
 
 ```javascript
 <script src="../ng-math-factory/dist/ng-math-factory.min.js"></script>
@@ -25,7 +25,7 @@ La libreria JavaScript debe agregarse en el **index.html** de tu proyecto:
 
 ### Inyectando: #
 
-Ahora debe inyectar la libreria en su módulo **app.js**:
+Ahora debe inyectar la librería en su módulo **app.js**:
 
 ```
 var app = angular.module('myapp', ['ng-math-factory']);
@@ -51,7 +51,7 @@ app.controller('appCtrl', function($scope, $math) {
 });
 ```
 
-De esta forma se obtiene los métodos que proporciona ng-math-factory, para luego listarlos en tu aplicación.
+De esta forma se obtiene los métodos que proporciona ng-math-factory, para luego poder listarlos en tu aplicación.
 Los datos se obtiene en formato JSON con esta estructura:
 
 ```javascript
@@ -75,9 +75,9 @@ Es el tipo de entrada que se va utilizar:
 
 ```javascript
 [
-	{x: 1, y 2},
-	{x: 3, y 4},
-	{x: 5, y 6}
+	{x: 1, y: 2},
+	{x: 3, y: 4},
+	{x: 5, y: 6}
 ]
 ```
 
@@ -115,7 +115,7 @@ app.controller('appCtrl', function($scope, $math) {
 
 **input** son los datos que solicita el método actual.
 
-**"/bower_components"** es la ruta donde esta la libreria ng-math-factory actualmente.
+**"/bower_components"** es la ruta donde esta la librería ng-math-factory actualmente.
 
 El metodo **resolve** de la factoria $math retorna 2 objetos:
 
@@ -139,18 +139,18 @@ El metodo **resolve** de la factoria $math retorna 2 objetos:
 ```
 
 # Contribuir #
-Para contribuir y agregar nuevos modulos a ng-math-factory, debes tener conceptos basicos de Angular 1 y highcharts-ng. Siguiendo unos cuantos pasos la implementación de un nuevo modulo sera muy sencillo y funcional. 
+Para contribuir y agregar nuevos módulos a ng-math-factory, debes tener conceptos basicos de Angular 1 y highcharts-ng. Siguiendo unos cuantos pasos la implementación de un nuevo módulo será muy sencillo y funcional. 
 
-Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ionic-methods-numerals), modificando la libreria y la aplicación automaticamente tomara la actualización corriendola en local.
+Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ionic-methods-numerals), modificando la librería y la aplicación automáticamente tomara la actualización corriendola en local.
 
 **Paso 1. Adjuntar mi_nuevo_modulo**
 
-- En el editor de codigo ubicarse en: /ng-math-factory/src/
-- Crear una carpeta con el nombre del nuevo modulo: /ng-math-factory/src/mi_nuevo_modulo/
-- Dentro del nuevo modulo crear 3 archivos, ejemplo: 
+- En el editor de código ubicarse en: /ng-math-factory/src/
+- Crear una carpeta con el nombre del nuevo módulo: /ng-math-factory/src/mi_nuevo_modulo/
+- Dentro del nuevo módulo crear 3 archivos, ejemplo: 
 	- mi_nuevo_modulo.js
 	- view_mi_nuevo_modulo.html
-	- view_graphics.html (Procurar no edita el nombre)
+	- view_graphics.html (Procurar no editar el nombre)
 
 **Paso 2. Hacer push**
 
@@ -190,9 +190,9 @@ Es el tipo de entrada que se va utilizar:
 
 ```javascript
 [
-	{x: 1, y 2},
-	{x: 3, y 4},
-	{x: 5, y 6}
+	{x: 1, y: 2},
+	{x: 3, y: 4},
+	{x: 5, y: 6}
 ]
 ```
 
@@ -247,7 +247,7 @@ angular.module('ng-math-factory',
 
 **Paso 5. Renderizar la vista**
 
-La solución en pantalla para el usuario es editable por el contributor. Para personalizar la vista y mostrar la solución del nuevo modulo se debe agregar en 
+La solución en pantalla para el usuario es editable por el contributor. Para personalizar la vista y mostrar la solución del nuevo módulo se debe agregar en 
 "/ng-math-factory/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html"
 
 ```html
@@ -270,7 +270,7 @@ function add(input) {
 		miGrafica: []
 	};
 
-	//chartConfig son las configuraciones que solicita la libreria highcharts-ng
+	//chartConfig son las configuraciones que solicita la librería highcharts-ng
 	solution.miGrafica = chartConfig; 
     return solution;
 }
@@ -286,12 +286,16 @@ function add(input) {
 
 # Probar y depurar código con gulp #
 
+<<<<<<< HEAD
 Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe modificar directamente la libreria desde la carpeta **/www/lib/ng-math-factory/src** y acceder desde la terminal, luego ejecutar:
+=======
+Para probar la librería en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe hacer:
+>>>>>>> dfc0878f054bdcfd3bae613e9de59f54ce8964a1
 
 ```bash
 $ gulp minify
 ```
 
-El comando quedara escuchando los cambios que se hagan en los scripts de la libreria. 
+El comando quedara escuchando los cambios que se hagan en los scripts de la librería. 
 
-**Nota:** Correr el demo con ionic serve para que escuche los cambios en la libreria.
+**Nota:** Correr el demo con ionic serve para que escuche los cambios en la librería.
