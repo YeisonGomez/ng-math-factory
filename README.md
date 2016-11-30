@@ -187,8 +187,7 @@ En /ng-math-factory/src/methods.js agregar el nuevo modulo con sus sub-modulos.
 	});
 })();
 ```
-**in**
-Es el tipo de entrada que se va utilizar:
+**in:** Es el tipo de entrada que se va utilizar:
 
 **1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").</br>
 **2. xy:** Se define que el método espera un arreglo de JSON de esta forma:
@@ -201,8 +200,7 @@ Es el tipo de entrada que se va utilizar:
 ]
 ```
 
-**readme**
-Una breve explicaión y ejemplo del método selecionado (recomendado para el in: formula).
+**readme:** Una breve explicaión y ejemplo del método selecionado.
 
 **Paso 3. Crear mi factoria**
 
