@@ -205,12 +205,16 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
     'use strict';
     angular.module('math.mi-nuevo-modulo', []).factory('miNuevoModulo', function($q) {
         return {
-            options: function(input, sub_module) {
+            options: function(input, sub_module, libs) {
                 var deferred = $q.defer();
                 var html = {
                     resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
-                    graphics: "/src/mi_nuevo_modulo/view_graphics.html"
+                    graphics: "/src/mi_nuevo_modulo/view_graphics.html" //Opcional
                 };
+
+                //Librerias agregadas
+                libs('/mi_nuevo_modulo/lib/libreria.js'); //Opcional
+
                 if (sub_module == "Sumar") {
                     deferred.resolve([add(input), html]);
                 } else if(sub_module == "Restar"){
@@ -223,15 +227,16 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
         };
 
 		function add(input) {
-			//Función nativa javascript eval.
-            return eval(input);
+            return metodo_libreria(input);
 	   	}
 
 		function substract(input){
-			return eval(input);
+			return metodo_libreria(input);
 		}
 });
 ```
+
+**Nota:** Para el uso de una dependencia más, deben agregar el script dentro de la carpeta lib, que previamente debe ser creada dentro del nuevo módulo.
 
 **Paso 4. Agregar mi_nuevo_modulo**
 
@@ -286,11 +291,7 @@ function add(input) {
 
 # Probar y depurar código con gulp #
 
-<<<<<<< HEAD
 Para probar la libreria en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe modificar directamente la libreria desde la carpeta **/www/lib/ng-math-factory/src** y acceder desde la terminal, luego ejecutar:
-=======
-Para probar la librería en el [demo](https://github.com/YeisonGomez/ionic-methods-numerals) se debe hacer:
->>>>>>> dfc0878f054bdcfd3bae613e9de59f54ce8964a1
 
 ```bash
 $ gulp minify
