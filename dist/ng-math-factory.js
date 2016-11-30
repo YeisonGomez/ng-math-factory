@@ -20,7 +20,7 @@
                     var methods_factory = $methods;
                     for (var i = 0; i < methods_factory.length; i++) {
                         if (method.name === methods_factory[i].name) {
-                            if(methods_factory[i].libs !== undefined){
+                            if(methods_factory[i].libs !== undefined){ 
                                 for (var k = 0; k < methods_factory[i].libs.length; k++) {
                                     addLibs(methods_factory[i].libs[k]);
                                 }

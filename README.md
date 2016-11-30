@@ -208,7 +208,7 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
     'use strict';
     angular.module('math.mi-nuevo-modulo', []).factory('miNuevoModulo', function($q) {
         return {
-            options: function(input, sub_module, libs) {
+            options: function(input, sub_module) {
                 var deferred = $q.defer();
                 var html = {
                     resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
