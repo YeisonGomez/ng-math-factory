@@ -10,7 +10,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('minify', function() {
-    gulp.src(['src/**/*.js', 'src/*.js'])
+    gulp.src(['src/**/*.js', 'src/*.js', '!src/**/lib/*.js'])
 	    .pipe(jshint())
 	    .pipe(jshint.reporter('default'))
         .pipe(concat('ng-math-factory.min.js'))

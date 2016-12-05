@@ -24,7 +24,13 @@ La librería JavaScript debe agregarse en el **index.html** de tu proyecto:
 
 Ahora debe inyectar la librería en su módulo **app.js**:
 
+<<<<<<< HEAD
 ```javascript
+=======
+Ahora debe inyectar la librería en su módulo **app.js**:
+
+```
+>>>>>>> fde4456b8d7bba703e14ce4eead433f483b65871
 var app = angular.module('myapp', ['ng-math-factory']);
 ```
 
@@ -216,8 +222,13 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
             options: function(input, sub_module) {
                 var deferred = $q.defer();
                 var html = {
+<<<<<<< HEAD
                     resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
                     graphics: "/src/mi_nuevo_modulo/view_graphics.html" //Opcional
+=======
+                    resolve: "/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
+                    graphics: "/mi_nuevo_modulo/view_graphics.html" //Opcional
+>>>>>>> fde4456b8d7bba703e14ce4eead433f483b65871
                 };
 
                 if (sub_module == "Sumar") {
