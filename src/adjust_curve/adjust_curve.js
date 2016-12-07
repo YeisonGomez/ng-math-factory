@@ -1,24 +1,9 @@
 (function() {
     'use strict';
     angular.module('math.adjust-curve', [])
-        .factory('adjustCurve', ['$q' ,function($q) {
-
+        .factory('adjustCurve', function() {
             return {
-                options: function(input, sub_module) {
-                    var deferred = $q.defer();
-                    var html = {
-                        resolve: "/adjust_curve/view_adjust_curve.html",
-                        graphics: "/adjust_curve/view_graphics.html"
-                    };
-
-                    if (sub_module == "Mínimos cuadrados") {
-                        deferred.resolve([minime_square(input), html]);
-                    } else {
-                        deferred.reject("Método desconocido");
-                    }
-
-                    return deferred.promise;
-                }
+                "Mínimos cuadrados": minime_square
             };
 
             function minime_square(input) {
@@ -124,5 +109,5 @@
                 solveMinumSquare.graphics = chartConfig;
                 return solveMinumSquare;
             }
-        }]);
+        });
 })();

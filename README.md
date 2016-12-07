@@ -116,9 +116,9 @@ app.controller('appCtrl', function($scope, $math) {
 ```
 #### `$math.resolve(method_current, input, route, callback)`
 
-##### Parameters
+##### Parametros
 
-| Param                    | Type     | Details
+| Parametro                | Tipo     | Detalle
 | ------------------------ | -------- | ---------------------------------------------------------------------------------------
 | **method_current**       |   `JSON`  | Es el método actualmente seleccionado.
 | **input**                |  `Object` | Son los datos que solicita el método actual un JSON o un String.
@@ -132,7 +132,7 @@ app.controller('appCtrl', function($scope, $math) {
 { name: "mi_nuevo_modulo", sub: "Sumar" }
 ```
 
-##### Returns
+##### Retorna
 
 - **data** - Es la solución de la formula solicitada en formato JSON.
 - **html** - Es un JSON con dos rutas de un archivo html con la respuesta ya renderizada, ejemplo:
@@ -156,7 +156,7 @@ Para contribuir y agregar nuevos módulos a ng-math-factory, debes tener concept
 
 Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ionic-methods-numerals), modificando la librería y la aplicación automáticamente tomara la actualización corriendola en local.
 
-**Paso 1. Adjuntar mi_nuevo_modulo**
+### Paso 1. Adjuntar mi_nuevo_modulo #
 
 - En el editor de código ubicarse en: **/ng-math-factory/src/**
 - Crear una carpeta con el nombre del nuevo módulo: **/ng-math-factory/src/mi_nuevo_modulo/**
@@ -164,11 +164,11 @@ Para hacer pruebas podras utilizar el [demo](https://github.com/YeisonGomez/ioni
 	- **mi_nuevo_modulo.js**
 	- **view_mi_nuevo_modulo.html**
 	- **view_graphics.html (Procurar no editar el nombre)** //Opcional
-	- **readme** //recomendado
+	- **readme** //Recomendado
 
-**Paso 2. Hacer push**
+### Paso 2. Hacer push #
 
-En **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modulos.
+En el archivo **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modulos.
 
 ```javascript
 (function() {
@@ -181,8 +181,9 @@ En **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modul
 			{
 		        name: "Ajuste de curvas",
 		        sub: [
-		            { name: "Mínimos cuadrados", in : "xy" }
+		            { name: "Mínimos cuadrados", in : "xy", readme: routeLib + '/adjust_curve/readme/minimo_cuadrado.html' }
 		        ],
+		       	html: { resolve: "/adjust_curve/view_adjust_curve.html", graphics: "/adjust_curve/view_graphics.html" },
 		        factory: "adjustCurve"		        
 		    },
 			{
@@ -191,6 +192,7 @@ En **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modul
 					{name: 'Sumar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
 					{name: 'Restar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/restar.html'}
 				],
+				html: { resolve: "/mi_nuevo_modulo/view_mi_nuevo_modulo.html", graphics: "/mi_nuevo_modulo/view_graphics.html" },
 				factory: "miNuevoModulo",
 				libs: [ /*Opcional*/
 		        	'/mi_nuevo_modulo/lib/libreria.js'
@@ -200,54 +202,34 @@ En **/ng-math-factory/src/methods.js** agregar el nuevo modulo con sus sub-modul
 	});
 })();
 ```
-**in:** Es el tipo de entrada que se va utilizar:
 
-**1. formula:** Se define que el método solicita un string con una formula a resolver ("3 + 4 - 6 * 5 / 2").</br>
-**2. xy:** Se define que el método espera un arreglo de JSON de esta forma:
+- **name** - Nombre del modulo.
+- **factory** - Nombre de la factoria que contiene el modulo (ver Paso 3).
+- **html** - Vista de la solución personalizada (ver Paso 5).
+- **sub** - Arreglo de JSON de los sub-modulos.
+	- **name** - Nombre del sub-modulo.
+	- **in** - Tipo de entrada que espera el sub-modulo ([ejemplo](#in)).
+	- **readme** - Ruta de un html que contiene una explicación del sub-modulo.
 
-```javascript
-[
-	{x: 1, y: 2},
-	{x: 3, y: 4},
-	{x: 5, y: 6}
-]
-```
-
-**readme:** Ruta del archivo html con una breve explicación y ejemplo del método selecionado.
-
-**Paso 3. Crear mi factoria**
+### Paso 3. Crear mi factoria #
 
 En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
 
 ```javascript
 (function() {
     'use strict';
-    angular.module('math.mi-nuevo-modulo', []).factory('miNuevoModulo', function($q) {
+    angular.module('math.mi-nuevo-modulo', []).factory('miNuevoModulo', function() {
         return {
-            options: function(input, sub_module) {
-                var deferred = $q.defer();
-                var html = {
-                    resolve: "/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html",
-                    graphics: "/src/mi_nuevo_modulo/view_graphics.html" //Opcional
-                };
-
-                if (sub_module == "Sumar") {
-                    deferred.resolve([add(input), html]);
-                } else if(sub_module == "Restar"){
-					deferred.resolve([substract(input), html]);
-                }else{
-                    deferred.reject("Método desconocido");
-                }
-                return deferred.promise;
-            }
+        	"Sumar": add, //Sumar tiene que coincidir con el nombre de los sub-modulos
+        	"Restar": substract
         };
 
 		function add(input) {
-            return metodo_libreria(input);
+            return eval(input);
 	   	}
 
 		function substract(input){
-			return metodo_libreria(input);
+			return eval(input);
 		}
 	});
 })();
@@ -255,43 +237,47 @@ En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
 
 **Nota:** Para el uso de una dependencia más, deben agregar el script dentro de la carpeta lib, que previamente debe ser creada dentro del nuevo módulo.
 
-**Paso 4. Agregar mi_nuevo_modulo**
+### Paso 4. Agregar mi_nuevo_modulo #
 
 En /ng-math-factory/src/math-factory.js agregar.
 
 ```javascript
 angular.module('ng-math-factory', 
 [
-    'math.methods',
+    'math.methods', 
     'math.mi-nuevo-modulo'
 ])
-.factory('$math', [
-            '$q', '$methods', 'adjustCurve', 'miNuevoModulo',
-            function($q, $methods, adjustCurve, miNuevoModulo) {
-            	//No editar
-            }]);
+.factory('$math', 
+[
+    '$q', //No editar
+    '$methods', //No editar
+    'adjustCurve', //No editar los otros modulos
+    'miNuevoModulo',
+    function($q, $methods, adjustCurve, miNuevoModulo) {
+    	//No editar
+    }]);
 ```
 
-**Paso 5. Respuesta**
+### Paso 5. Respuesta #
 
 La solución en pantalla para el usuario es editable por el contributor. Para personalizar la vista y mostrar la solución del nuevo módulo se debe agregar en 
-"/ng-math-factory/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html"
+**/ng-math-factory/src/mi_nuevo_modulo/view_mi_nuevo_modulo.html**
 
 ```html
 <h1>La solución del problema es:</h1>
 <h2>{{solveProblem}}</h2>
 ```
 
-**Nota:** solveProblem es la variable que contiene la respuesta del script proporcionado por el contributor **(no puede ser editable)**.
+**Nota:** solveProblem es la variable que contiene la respuesta del script proporcionado por el contributor **(El nombre de la variable no es editable)**.
 
-**Paso 6. README**
+### Paso 6. README #
 
 Los métodos ofrecidos en el nuevo modulo, deben tener una breve explicación del método y un ejemplo de la formula que se solicita al usuario. El archivo se solicita como un HTML agregado dentro de la carpeta **/mi_nuevo_modulo/readme/**, se recomienda tener un archivo readme por cada método del modulo.
 
 ```html
-<p>Este método se utiliza para sumar, restar, multiplicar, y dividir</p>
+<p>Este método se utiliza para sumar</p>
 <h2>Ejemplo:</h2>
-<p>2 - 4 + 5</p>
+<p>4 + 5</p>
 ```
 
 #Agregar gráfica con [highcharts-ng](https://github.com/pablojim/highcharts-ng)#

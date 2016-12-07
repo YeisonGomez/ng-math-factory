@@ -1,26 +1,11 @@
 (function() {
     'use strict';
     angular.module('math.general', [])
-        .factory('general', ['$q', function($q) {
+        .factory('general', function() {
 
             return {
-                options: function(input, sub_module) {
-                    var deferred = $q.defer();
-                    var html = {
-                        resolve: "/general/view_general.html"
-                            //graphics: "/adjust_curve/view_graphics.html"
-                    };
-
-                    if (sub_module == "Operación basica") {
-                        deferred.resolve([op_basic(input), html]);
-                    } else if (sub_module == "Derivar") {
-                        deferred.resolve([derivar(input), html]);
-                    } else {
-                        deferred.reject("Método desconocido");
-                    }
-
-                    return deferred.promise;
-                }
+                "Operación basica": op_basic,
+                "Derivar": derivar
             };
 
             function op_basic(input) {
@@ -37,5 +22,5 @@
                 }
                 return solution;
             }
-        }]);
+        });
 })();

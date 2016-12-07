@@ -1,32 +1,15 @@
 (function() {
     'use strict';
-    angular.module('math.search-raiz', []).factory('searchRaiz', function($q) {
+    angular.module('math.search-raiz', []).factory('searchRaiz', function() {
         return {
-            options: function(input, sub_module) {
-                var deferred = $q.defer();
-                var html = {
-                    resolve: "/search_raiz/view_search_raiz.html"
-                        //graphics: "/mi_nuevo_modulo/view_graphics.html" //Opcional
-                };
-
-                input = parse_input(input);
-
-                if (sub_module == "Punto fijo") {
-                    deferred.resolve([point_fixed(input), html]);
-                } else if (sub_module == "Bisección") {
-                    deferred.resolve([bisection(input), html]);
-                } else if (sub_module == "Newton Raphson") {
-                    deferred.resolve([newton(input), html]);
-                } else if (sub_module == "Regla falsa") {
-                    deferred.resolve([rule_false(input), html]);
-                } else {
-                    deferred.reject("Método desconocido");
-                }
-                return deferred.promise;
-            }
+            "Bisección": bisection,
+            "Punto fijo": point_fixed,
+            "Newton Raphson": newton,
+            "Regla falsa": rule_false
         };
 
         function point_fixed(input) {
+            input = parse_input(input);
             console.log(input);
             var x_ant = 0,
                 xr = 0,
@@ -47,6 +30,7 @@
         }
 
         function bisection(input) {
+            input = parse_input(input);
             console.log(replaceValues(input.funcion, input.x2));
             console.log(replaceValues(input.funcion, input.x1));
             var fx1b = replaceValues(input.funcion, input.x1);
@@ -70,7 +54,7 @@
                 return { XR: xr, error: err };
 
             } else {
-                return { XR: "no valido", error: "100%" }
+                return { XR: "no valido", error: "100%" };
             }
         }
 
@@ -79,6 +63,7 @@
         }
 
         function rule_false(input) {
+            input = parse_input(input);
             var xr = input.x2,
                 fx1, fx2, fxr, err;
             var x_ant = 0;

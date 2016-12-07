@@ -21,7 +21,7 @@
                     for (var i = 0; i < methods_factory.length; i++) {
                         if (method.name === methods_factory[i].name) {
                             if (methods_factory[i].libs !== undefined) {
-                                for (var k = 0; k < methods_factory[i].libs.length; k++) { 
+                                for (var k = 0; k < methods_factory[i].libs.length; k++) {
                                     var oHead = document.getElementsByTagName('head')[0];
                                     var oScript = document.createElement('script');
                                     oScript.type = 'text/javascript';
@@ -30,18 +30,15 @@
                                     oHead.appendChild(oScript);
                                 }
                             }
-                            eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
-                                var html = data[1];
-                                console.log(data);
-                                html.resolve = routeDep + routeLib + html.resolve;
-                                html.graphics = (html.graphics === undefined) ? undefined : routeDep + routeLib + html.graphics;
-                                callback(data[0], html);
-                            });
+                            var res = eval(methods_factory[i].factory + '["' + method.sub + '"]' + '("' + input + '")');
+                            var html = methods_factory[i].html;
+                            html.resolve = routeDep + routeLib + html.resolve;
+                            html.graphics = (html.graphics === undefined) ? undefined : routeDep + routeLib + html.graphics;
+                            callback(res, html);
                             break;
                         }
                     }
                 }
-
 
                 function getMethods() {
                     return $methods;
