@@ -27,33 +27,23 @@
         };
 
         function point_fixed(input) {
-                console.log(input);
-                var y = 0;
-                y = (Math.pow(-x, 3) + (3 * Math.pow(x, 2)) + 5) / 4;
-
-                return y;
-  
-                var nro_iter = 0,
-                    max_iter = 0,
-                    x_ant = 0,
-                    xr = 0,
-                    ea = 0;
-                var point = $("#x_one").val();
-                xr = parseFloat(point);
-                var max_iter = $("#iter").val();
-                while (nro_iter < max_iter) {
-                    x_ant = xr;
-                    xr = funciones(point);
-                    ea = Math.abs((xr - x_ant) / xr) * 100;
-                    point = xr;
-                    nro_iter = nro_iter + 1;
-
-                }
-
-                $("#root").val(xr);
-                $("#error").val(ea);
-                $("#iteraciones").val(nro_iter);
-
+            console.log(input);
+            var x_ant = 0,
+                xr = 0,
+                ea = 0;
+            var point = input.x1;
+            xr = parseFloat(point);
+            for (var i = 0; i < input.iteracion; i++) {
+                x_ant = xr;
+                xr = replaceValues(input.funcion, point);
+                ea = Math.abs((xr - x_ant) / xr) * 100;
+                point = xr;
+            }
+            console.log("xr: " + xr + " error" + ea );
+            return {
+                xr: xr,
+                error: ea
+            };
         }
 
         function bisection(input) {
