@@ -109,19 +109,22 @@ app.controller('appCtrl', function($scope, $math) {
 });
 ```
 
-**$scope.method_current** es el método actualmente seleccionado:
+##### Parameters
+
+| Param                    | Type     | Details
+| ------------------------ | -------- | ---------------------------------------------------------------------------------------
+| **$scope.method_current**| `JSON`   | Es el método actualmente seleccionado.
+| **input**                | `Object` | Son los datos que solicita el método actual un JSON o un String.
+| **"/bower_components"**  | `String` | Es la ruta donde esta la librería ng-math-factory actualmente.
+
+
+**$scope.method_current** ejemplo:
 
 ```javascript
 { name: "mi_nuevo_modulo", sub: "Sumar" }
 ```
 
-**input** son los datos que solicita el método actual.
-
-**"/bower_components"** es la ruta donde esta la librería ng-math-factory actualmente.
-
-El metodo **resolve** de la factoria $math retorna 2 objetos:
-
-##### Retorna
+##### Returns
 
 - **data** - Es la solución de la formula solicitada en formato JSON.
 - **html** - Es un JSON con dos rutas de un archivo html con la respuesta ya renderizada, ejemplo:
