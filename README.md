@@ -70,9 +70,9 @@ Los datos se obtiene en formato JSON con esta estructura:
 
 - **name** - Nombre del modulo.
 - **sub** - Arreglo de JSON de los sub-modulos.
------- **name** - Nombre del sub-modulo.
------- **in** - Tipo de entrada que espera el sub-modulo ([ejemplo](#in)).
------- **readme** - Ruta de un html que contiene una explicación del sub-modulo.
+	- **name** - Nombre del sub-modulo.
+	- **in** - Tipo de entrada que espera el sub-modulo ([ejemplo](#in)).
+	- **readme** - Ruta de un html que contiene una explicación del sub-modulo.
 
 ## in #
 
