@@ -86,48 +86,6 @@
 
 (function() {
     'use strict';
-    angular.module('math.general', [])
-        .factory('general', ['$q', function($q) {
-
-            return {
-                options: function(input, sub_module) {
-                    var deferred = $q.defer();
-                    var html = {
-                        resolve: "/general/view_general.html"
-                            //graphics: "/adjust_curve/view_graphics.html"
-                    };
-
-                    if (sub_module == "Operación basica") {
-                        deferred.resolve([op_basic(input), html]);
-                    } else if (sub_module == "Derivar") {
-                        deferred.resolve([derivar(input), html]);
-                    } else {
-                        deferred.reject("Método desconocido");
-                    }
-
-                    return deferred.promise;
-                }
-            };
-
-            function op_basic(input) {
-                var solucion = eval(input);
-                return solucion;
-            }
-
-            function derivar(input) {
-                var solution;
-                try {
-                    solution = deriveExpression(input);
-                } catch (exception) {
-                    solution = "Expresiones invalidas.";
-                }
-                return solution;
-            }
-        }]);
-})();
-
-(function() {
-    'use strict';
     angular.module('math.adjust-curve', [])
         .factory('adjustCurve', ['$q' ,function($q) {
 
@@ -257,6 +215,48 @@
 
 (function() {
     'use strict';
+    angular.module('math.general', [])
+        .factory('general', ['$q', function($q) {
+
+            return {
+                options: function(input, sub_module) {
+                    var deferred = $q.defer();
+                    var html = {
+                        resolve: "/general/view_general.html"
+                            //graphics: "/adjust_curve/view_graphics.html"
+                    };
+
+                    if (sub_module == "Operación basica") {
+                        deferred.resolve([op_basic(input), html]);
+                    } else if (sub_module == "Derivar") {
+                        deferred.resolve([derivar(input), html]);
+                    } else {
+                        deferred.reject("Método desconocido");
+                    }
+
+                    return deferred.promise;
+                }
+            };
+
+            function op_basic(input) {
+                var solucion = eval(input);
+                return solucion;
+            }
+
+            function derivar(input) {
+                var solution;
+                try {
+                    solution = deriveExpression(input);
+                } catch (exception) {
+                    solution = "Expresiones invalidas.";
+                }
+                return solution;
+            }
+        }]);
+})();
+
+(function() {
+    'use strict';
     angular.module('math.search-raiz', []).factory('searchRaiz', function($q) {
         return {
             options: function(input, sub_module) {
@@ -298,7 +298,7 @@
             }
             console.log("xr: " + xr + " error" + ea);
             return {
-                xr: xr,
+                XR: xr,
                 error: ea
             };
         }
@@ -317,7 +317,7 @@
                     xr = (parseFloat(input.x1) + parseFloat(input.x2)) / 2;
                     fx1 = replaceValues(input.funcion, parseFloat(input.x1));
                     fxr = replaceValues(input.funcion, xr);
-                    err = Math.abs((xr - x_ant) / xr) * 100; 
+                    err = Math.abs((xr - x_ant) / xr) * 100;
                     if (fx1 * fxr <= 0) {
                         input.x2 = xr;
                     } else {
@@ -336,24 +336,30 @@
         }
 
         function rule_false(input) {
-            var xr = input.x2,
-                fx1, fx2, fxr, err;
-            var x_ant = 0;
-            for (var i = 0; i < input.iteracion; i++) {
-                x_ant = xr;
-                fx1 = replaceValues(input.funcion, parseFloat(x1));
-                fx2 = replaceValues(input.funcion, parseFloat(x2));
-                xr = (parseFloat(x2) - ((fx2 * (parseFloat(x1) - parseFloat(x2))) / (fx1 - fx2)));
-                err = Math.abs((xr - x_ant) / xr) * 100;
-                fxr = replaceValues(input.funcion, xr);
-                if (fx1 * fxr < 0) {
-                    x2 = xr;
-                } else {
-                    x1 = xr;
+            var fx1b = replaceValues(input.funcion, input.x1);
+            var fx2b = replaceValues(input.funcion, input.x2);
+            if (fx1b <= 0 && fx2b >= 0 || fx1b >= 0 && fx2b <= 0) {
+                var xr = input.x2,
+                    fx1, fx2, fxr, err;
+                var x_ant = 0;
+                for (var i = 0; i < input.iteracion; i++) {
+                    x_ant = xr;
+                    fx1 = replaceValues(input.funcion, parseFloat(input.x1));
+                    fx2 = replaceValues(input.funcion, parseFloat(input.x2));
+                    xr = (parseFloat(input.x2) - ((fx2 * (parseFloat(input.x1) - parseFloat(input.x2))) / (fx1 - fx2)));
+                    err = Math.abs((xr - x_ant) / xr) * 100;
+                    fxr = replaceValues(input.funcion, xr);
+                    if (fx1 * fxr <= 0) {
+                        input.x2 = xr;
+                    } else {
+                        input.x1 = xr;
+                    }
                 }
-            }
 
-            return { XR: xr, error: err };
+                return { XR: xr, error: err };
+            } else {
+                return { XR: "no valido", error: "100%" }
+            }
         }
 
         //METODOS PROPIOS
