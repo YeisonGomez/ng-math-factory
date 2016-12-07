@@ -60,7 +60,7 @@
                     xr = (parseFloat(input.x1) + parseFloat(input.x2)) / 2;
                     fx1 = replaceValues(input.funcion, parseFloat(input.x1));
                     fxr = replaceValues(input.funcion, xr);
-                    err = Math.abs((xr - x_ant) / xr) * 100; 
+                    err = Math.abs((xr - x_ant) / xr) * 100;
                     if (fx1 * fxr <= 0) {
                         input.x2 = xr;
                     } else {
@@ -79,24 +79,30 @@
         }
 
         function rule_false(input) {
-            var xr = input.x2,
-                fx1, fx2, fxr, err;
-            var x_ant = 0;
-            for (var i = 0; i < input.iteracion; i++) {
-                x_ant = xr;
-                fx1 = replaceValues(input.funcion, parseFloat(input.x1));
-                fx2 = replaceValues(input.funcion, parseFloat(x2));
-                xr = (parseFloat(x2) - ((fx2 * (parseFloat(x1) - parseFloat(x2))) / (fx1 - fx2)));
-                err = Math.abs((xr - x_ant) / xr) * 100;
-                fxr = replaceValues(input.funcion, xr);
-                if (fx1 * fxr < 0) {
-                    x2 = xr;
-                } else {
-                    x1 = xr;
+            var fx1b = replaceValues(input.funcion, input.x1);
+            var fx2b = replaceValues(input.funcion, input.x2);
+            if (fx1b <= 0 && fx2b >= 0 || fx1b >= 0 && fx2b <= 0) {
+                var xr = input.x2,
+                    fx1, fx2, fxr, err;
+                var x_ant = 0;
+                for (var i = 0; i < input.iteracion; i++) {
+                    x_ant = xr;
+                    fx1 = replaceValues(input.funcion, parseFloat(input.x1));
+                    fx2 = replaceValues(input.funcion, parseFloat(input.x2));
+                    xr = (parseFloat(input.x2) - ((fx2 * (parseFloat(input.x1) - parseFloat(input.x2))) / (fx1 - fx2)));
+                    err = Math.abs((xr - x_ant) / xr) * 100;
+                    fxr = replaceValues(input.funcion, xr);
+                    if (fx1 * fxr <= 0) {
+                        input.x2 = xr;
+                    } else {
+                        input.x1 = xr;
+                    }
                 }
-            }
 
-            return { XR: xr, error: err };
+                return { XR: xr, error: err };
+            } else {
+                return { XR: "no valido", error: "100%" }
+            }
         }
 
         //METODOS PROPIOS
