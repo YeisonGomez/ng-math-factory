@@ -9,8 +9,8 @@
             'math.adjust-curve',
             'math.search-raiz'
         ])
-        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', 'searchRaiz',
-            function($q, $methods, adjustCurve, general, searchRaiz) {
+        .factory('$math', '$methods', 'adjustCurve', 'general', 'searchRaiz',
+            function($methods, adjustCurve, general, searchRaiz) {
                 return {
                     resolve: resolve,
                     getMethods: getMethods
@@ -44,5 +44,5 @@
                     return $methods;
                 }
             }
-        ]);
+        );
 })();

@@ -205,7 +205,7 @@ En el archivo **/ng-math-factory/src/methods.js** agregar el nuevo modulo con su
 
 - **name** - Nombre del modulo.
 - **factory** - Nombre de la factoria que contiene el modulo (ver Paso 3).
-- **html** - Vista de la solución personalizada (ver Paso 5).
+- **html** - Ruta del HTML de la solución personalizada (ver Paso 5).
 - **sub** - Arreglo de JSON de los sub-modulos.
 	- **name** - Nombre del sub-modulo.
 	- **in** - Tipo de entrada que espera el sub-modulo ([ejemplo](#in)).
@@ -213,7 +213,7 @@ En el archivo **/ng-math-factory/src/methods.js** agregar el nuevo modulo con su
 
 ### Paso 3. Crear mi factoria #
 
-En /ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js agregar.
+En **/ng-math-factory/src/mi_nuevo_modulo/mi_nuevo_modulo.js** agregar.
 
 ```javascript
 (function() {
@@ -249,11 +249,10 @@ angular.module('ng-math-factory',
 ])
 .factory('$math', 
 [
-    '$q', //No editar
     '$methods', //No editar
     'adjustCurve', //No editar los otros modulos
     'miNuevoModulo',
-    function($q, $methods, adjustCurve, miNuevoModulo) {
+    function($methods, adjustCurve, miNuevoModulo) {
     	//No editar
     }]);
 ```
