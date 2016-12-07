@@ -6,9 +6,11 @@
     angular.module('ng-math-factory', [
             'math.methods',
             'math.general',
-            'math.adjust-curve'
+            'math.adjust-curve',
+            'math.search-raiz' 
         ])
-        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', function($q, $methods, adjustCurve, general) {
+        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', 'searchRaiz', 
+            function($q, $methods, adjustCurve, general, searchRaiz) {
             return {
                 resolve: resolve,
                 getMethods: getMethods
