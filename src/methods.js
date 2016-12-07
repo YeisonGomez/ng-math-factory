@@ -1,8 +1,8 @@
 (function() {
     'use strict';
-
     angular.module('math.methods', []).factory("$methods", function() {
         var routeLib = "/ng-math-factory/src";
+
         return [{
             name: 'General',
             sub: [{ name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' }],
@@ -25,6 +25,15 @@
                 resolve: "/search_raiz/view_search_raiz.html"
             },
             factory: 'searchRaiz'
+        },
+        {
+            name: 'Integración numérica',
+            sub: [
+                { name: 'Simpson 1/3', in : 'formula', readme: routeLib + '/numeric_integration/readme/simpsonOnethird.html' },
+                { name: 'Regla del trapecio', in : 'formula', readme: routeLib + '/numeric_integration/readme/trapezoid.html' }
+            ],
+            html: {resolve: "/numeric_integration/view_numeric_integration.html"},
+            factory: 'numericIntegration'
         }];
     });
 })();

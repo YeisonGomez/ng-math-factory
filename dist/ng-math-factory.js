@@ -7,10 +7,11 @@
             'math.methods',
             'math.general',
             'math.adjust-curve',
-            'math.search-raiz'
+            'math.search-raiz',
+            'math.numeric-integration'
         ])
-        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', 'searchRaiz',
-            function($q, $methods, adjustCurve, general, searchRaiz) {
+        .factory('$math', ['$methods', 'adjustCurve', 'general', 'searchRaiz', 'numericIntegration',
+            function($methods, adjustCurve, general, searchRaiz, numericIntegration) {
                 return {
                     resolve: resolve,
                     getMethods: getMethods
@@ -49,9 +50,9 @@
 
 (function() {
     'use strict';
-
     angular.module('math.methods', []).factory("$methods", function() {
         var routeLib = "/ng-math-factory/src";
+
         return [{
             name: 'General',
             sub: [{ name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' }],
@@ -74,170 +75,25 @@
                 resolve: "/search_raiz/view_search_raiz.html"
             },
             factory: 'searchRaiz'
+        },
+        {
+            name: 'Integración numérica',
+            sub: [
+                { name: 'Simpson 1/3', in : 'formula', readme: routeLib + '/numeric_integration/readme/simpsonOnethird.html' },
+                { name: 'Regla del trapecio', in : 'formula', readme: routeLib + '/numeric_integration/readme/trapezoid.html' }
+            ],
+            html: {resolve: "/numeric_integration/view_numeric_integration.html"},
+            factory: 'numericIntegration'
         }];
     });
 })();
 
 (function() {
     'use strict';
-    angular.module('math.search-raiz', []).factory('searchRaiz', function($q) {
-        return {
-            "Bisección": bisection,
-            "Punto fijo": point_fixed,
-            "Newton Raphson": newton,
-            "Regla falsa": rule_false
-        };
-
-        function point_fixed(input) {
-            input = parse_input(input);
-            console.log(input);
-            var x_ant = 0,
-                xr = 0,
-                ea = 0;
-            var point = input.x1;
-            xr = parseFloat(point);
-            for (var i = 0; i < input.iteracion; i++) {
-                x_ant = xr;
-                xr = replaceValues(input.funcion, point);
-                ea = Math.abs((xr - x_ant) / xr) * 100;
-                point = xr;
-            }
-            console.log("xr: " + xr + " error" + ea);
-            return {
-                xr: xr,
-                error: ea
-            };
-        }
-
-        function bisection(input) {
-            input = parse_input(input);
-            console.log(replaceValues(input.funcion, input.x2));
-            console.log(replaceValues(input.funcion, input.x1));
-            var fx1b = replaceValues(input.funcion, input.x1);
-            var fx2b = replaceValues(input.funcion, input.x2);
-            if (fx1b <= 0 && fx2b >= 0 || fx1b >= 0 && fx2b <= 0) {
-                var xr = input.x1,
-                    fx1, fxr, err;
-                var x_ant = 0;
-                for (var i = 0; i < input.iteracion; i++) {
-                    x_ant = xr;
-                    xr = (parseFloat(input.x1) + parseFloat(input.x2)) / 2;
-                    fx1 = replaceValues(input.funcion, parseFloat(input.x1));
-                    fxr = replaceValues(input.funcion, xr);
-                    err = Math.abs((xr - x_ant) / xr) * 100; 
-                    if (fx1 * fxr <= 0) {
-                        input.x2 = xr;
-                    } else {
-                        input.x1 = xr;
-                    }
-                }
-                return { XR: xr, error: err };
-
-            } else {
-                return { XR: "no valido", error: "100%" };
-            }
-        }
-
-        function newton(input) {
-            //return metodo_libreria(input);
-        }
-
-        function rule_false(input) {
-            input = parse_input(input);
-            var xr = input.x2,
-                fx1, fx2, fxr, err;
-            var x_ant = 0;
-            for (var i = 0; i < input.iteracion; i++) {
-                x_ant = xr;
-                fx1 = replaceValues(input.funcion, parseFloat(x1));
-                fx2 = replaceValues(input.funcion, parseFloat(x2));
-                xr = (parseFloat(x2) - ((fx2 * (parseFloat(x1) - parseFloat(x2))) / (fx1 - fx2)));
-                err = Math.abs((xr - x_ant) / xr) * 100;
-                fxr = replaceValues(input.funcion, xr);
-                if (fx1 * fxr < 0) {
-                    x2 = xr;
-                } else {
-                    x1 = xr;
-                }
-            }
-
-            return { XR: xr, error: err };
-        }
-
-        //METODOS PROPIOS
-        function parse_input(input) {
-            var arr = input.split(";");
-            return {
-                funcion: arr[0],
-                x1: parseInt(arr[1]),
-                x2: parseInt(arr[2]),
-                iteracion: parseInt(arr[3])
-            };
-        }
-
-        function replaceValues(funcion, x) {
-            funcion = replaceOthers(funcion, "pow");
-            funcion = replaceOthers(funcion, "x", x);
-            return eval(funcion);
-        }
-
-        function replaceAll(str, find, replace) {
-            return str.replace(new RegExp(find, 'g'), replace);
-        }
-
-        function replaceOthers(funcion, type, x) {
-            funcion = replaceAll(funcion, " ", "");
-
-            if (type == "pow") {
-                while (funcion.indexOf("^") != -1) {
-                    funcion = funcion.replace("^", "**");
-                }
-            } else if (type == "x") {
-                var pos = funcion.indexOf("x");
-                while (pos != -1) {
-                    var num_antes = (funcion[pos - 1] !== undefined && isNumeric(funcion[pos - 1]));
-                    var num_despues = (funcion[pos + 1] !== undefined && isNumeric(funcion[pos + 1]));
-
-                    if (num_antes && num_despues) {
-                        funcion = funcion.replace("x", "*" + x + "*");
-                    } else if (num_antes) {
-                        funcion = funcion.replace("x", "*" + x);
-                    } else if (num_despues) {
-                        funcion = funcion.replace("x", x + "*");
-                    } else {
-                        funcion = funcion.replace("x", x);
-                    }
-
-                    pos = funcion.indexOf("x");
-                }
-            }
-
-            return funcion;
-        }
-
-        function isNumeric(input) {
-            return (input - 0) == input && ('' + input).trim().length > 0;
-        }
-    });
-})();
-
-(function() {
-    'use strict';
     angular.module('math.adjust-curve', [])
-        .factory('adjustCurve', ['$q' ,function($q) {
-
+        .factory('adjustCurve', function() {
             return {
-                options: function(input, sub_module) {
-                    var deferred = $q.defer();
-
-                    if (sub_module == "Mínimos cuadrados") {
-                        deferred.resolve(minime_square(input));
-                    } else {
-                        deferred.reject("Método desconocido");
-                    }
-
-                    return deferred.promise;
-                }
+                "Mínimos cuadrados": minime_square
             };
 
             function minime_square(input) {
@@ -343,13 +199,13 @@
                 solveMinumSquare.graphics = chartConfig;
                 return solveMinumSquare;
             }
-        }]);
+        });
 })();
 
 (function() {
     'use strict';
     angular.module('math.general', [])
-        .factory('general', ['$q', function($q) {
+        .factory('general', function() {
 
             return {
                 "Operación basica": op_basic,
@@ -370,7 +226,198 @@
                 }
                 return solution;
             }
-        }]);
+        });
+})();
+
+(function() {
+    'use strict';
+    angular.module('math.numeric-integration', []).factory('numericIntegration', function() {
+        return {
+            "Simpson 1/3": simpson13,
+            "Regla del trapecio": trapezoid
+        };
+
+        function simpson13(input) {
+            var ValoresdeY;
+            ValoresdeY = [1, 2, 3, 4, 5]; //como no se como maneja la variable la deje estatica :v
+            var puntoa = input.a; //el a de la integral
+            var puntob = input.b; //b de la integral definida
+            var particiones = input.n; //esto es N
+            var DeltaX = (puntob - puntoa) / particiones; //Delta de X
+            //aca va el sumador del arreglo de valores
+            var sumatoriaspar = 0;
+            for (var i = 2; i < ValoresdeY.length - 1; i += 2) { sumatoriaspar += ValoresdeY[i]; }
+            var sumatoriasimpar = 0;
+            for (i = 1; i < ValoresdeY.length - 1; i += 2) { sumatoriasimpar += ValoresdeY[i]; }
+            //aca termina
+            var valortercio = DeltaX * (ValoresdeY[ValoresdeY.length - 1] + ValoresdeY[0] + (4 * sumatoriasimpar) + (2 * sumatoriaspar));
+            return valortercio;
+        }
+
+        function trapezoid(input) {
+            var ValoresdeY;
+            ValoresdeY = [1, 2, 3, 4, 5]; //como no se como maneja la variable la deje estatica :v
+            var puntoa = input.a; //el a de la integral
+            var puntob = input.b; //b de la integral definida
+            var particiones = input.n; //esto es N
+            var DeltaX = (puntob - puntoa) / particiones; //Delta de X
+            //aca va el sumador del arreglo de valores
+            var sumatoriasY = 0;
+            for (var i = 1; i < ValoresdeY.length - 1; i++) { sumatoriasY += ValoresdeY[i]; }
+            //aca termina
+            var valortrapecio = DeltaX * (ValoresdeY[ValoresdeY.length - 1] + ValoresdeY[0] + (2 * sumatoriasY));
+            return valortrapecio;
+        }
+    });
+})();
+
+(function() {
+    'use strict';
+    angular.module('math.search-raiz', []).factory('searchRaiz', function() {
+        return {
+            "Bisección": bisection,
+            "Punto fijo": point_fixed,
+            "Newton Raphson": newton,
+            "Regla falsa": rule_false
+        };
+
+        function point_fixed(input) {
+            input = parse_input(input);
+            console.log(input);
+            var x_ant = 0,
+                xr = 0,
+                ea = 0;
+            var point = input.x1;
+            xr = parseFloat(point);
+            for (var i = 0; i < input.iteracion; i++) {
+                x_ant = xr;
+                xr = replaceValues(input.funcion, point);
+                ea = Math.abs((xr - x_ant) / xr) * 100;
+                point = xr;
+            }
+            console.log("xr: " + xr + " error" + ea);
+            return {
+                XR: xr,
+                error: ea
+            };
+        }
+
+        function bisection(input) {
+            input = parse_input(input);
+            console.log(replaceValues(input.funcion, input.x2));
+            console.log(replaceValues(input.funcion, input.x1));
+            var fx1b = replaceValues(input.funcion, input.x1);
+            var fx2b = replaceValues(input.funcion, input.x2);
+            if (fx1b <= 0 && fx2b >= 0 || fx1b >= 0 && fx2b <= 0) {
+                var xr = input.x1,
+                    fx1, fxr, err;
+                var x_ant = 0;
+                for (var i = 0; i < input.iteracion; i++) {
+                    x_ant = xr;
+                    xr = (parseFloat(input.x1) + parseFloat(input.x2)) / 2;
+                    fx1 = replaceValues(input.funcion, parseFloat(input.x1));
+                    fxr = replaceValues(input.funcion, xr);
+                    err = Math.abs((xr - x_ant) / xr) * 100;
+                    if (fx1 * fxr <= 0) {
+                        input.x2 = xr;
+                    } else {
+                        input.x1 = xr;
+                    }
+                }
+                return { XR: xr, error: err };
+
+            } else {
+                return { XR: "no valido", error: "100%" };
+            }
+        }
+
+        function newton(input) {
+            //return metodo_libreria(input);
+        }
+
+        function rule_false(input) {
+            input = parse_input(input);
+            var fx1b = replaceValues(input.funcion, input.x1);
+            var fx2b = replaceValues(input.funcion, input.x2);
+            if (fx1b <= 0 && fx2b >= 0 || fx1b >= 0 && fx2b <= 0) {
+                var xr = input.x2,
+                    fx1, fx2, fxr, err;
+                var x_ant = 0;
+                for (var i = 0; i < input.iteracion; i++) {
+                    x_ant = xr;
+                    fx1 = replaceValues(input.funcion, parseFloat(input.x1));
+                    fx2 = replaceValues(input.funcion, parseFloat(input.x2));
+                    xr = (parseFloat(input.x2) - ((fx2 * (parseFloat(input.x1) - parseFloat(input.x2))) / (fx1 - fx2)));
+                    err = Math.abs((xr - x_ant) / xr) * 100;
+                    fxr = replaceValues(input.funcion, xr);
+                    if (fx1 * fxr <= 0) {
+                        input.x2 = xr;
+                    } else {
+                        input.x1 = xr;
+                    }
+                }
+
+                return { XR: xr, error: err };
+            } else {
+                return { XR: "no valido", error: "100%" };
+            }
+        }
+
+        //METODOS PROPIOS
+        function parse_input(input) {
+            var arr = input.split(";");
+            return {
+                funcion: arr[0],
+                x1: parseInt(arr[1]),
+                x2: parseInt(arr[2]),
+                iteracion: parseInt(arr[3])
+            };
+        }
+
+        function replaceValues(funcion, x) {
+            funcion = replaceOthers(funcion, "pow");
+            funcion = replaceOthers(funcion, "x", x);
+            return eval(funcion);
+        }
+
+        function replaceAll(str, find, replace) {
+            return str.replace(new RegExp(find, 'g'), replace);
+        }
+
+        function replaceOthers(funcion, type, x) {
+            funcion = replaceAll(funcion, " ", "");
+
+            if (type == "pow") {
+                while (funcion.indexOf("^") != -1) {
+                    funcion = funcion.replace("^", "**");
+                }
+            } else if (type == "x") {
+                var pos = funcion.indexOf("x");
+                while (pos != -1) {
+                    var num_antes = (funcion[pos - 1] !== undefined && isNumeric(funcion[pos - 1]));
+                    var num_despues = (funcion[pos + 1] !== undefined && isNumeric(funcion[pos + 1]));
+
+                    if (num_antes && num_despues) {
+                        funcion = funcion.replace("x", "*" + x + "*");
+                    } else if (num_antes) {
+                        funcion = funcion.replace("x", "*" + x);
+                    } else if (num_despues) {
+                        funcion = funcion.replace("x", x + "*");
+                    } else {
+                        funcion = funcion.replace("x", x);
+                    }
+
+                    pos = funcion.indexOf("x");
+                }
+            }
+
+            return funcion;
+        }
+
+        function isNumeric(input) {
+            return (input - 0) == input && ('' + input).trim().length > 0;
+        }
+    });
 })();
 
 /*

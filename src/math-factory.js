@@ -7,10 +7,11 @@
             'math.methods',
             'math.general',
             'math.adjust-curve',
-            'math.search-raiz'
+            'math.search-raiz',
+            'math.numeric-integration'
         ])
-        .factory('$math', '$methods', 'adjustCurve', 'general', 'searchRaiz',
-            function($methods, adjustCurve, general, searchRaiz) {
+        .factory('$math', ['$methods', 'adjustCurve', 'general', 'searchRaiz', 'numericIntegration',
+            function($methods, adjustCurve, general, searchRaiz, numericIntegration) {
                 return {
                     resolve: resolve,
                     getMethods: getMethods
@@ -44,5 +45,5 @@
                     return $methods;
                 }
             }
-        );
+        ]);
 })();
