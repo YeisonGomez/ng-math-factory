@@ -52,21 +52,27 @@ app.controller('appCtrl', function($scope, $math) {
 });
 ```
 
-De esta forma se obtiene los métodos que proporciona ng-math-factory, para luego poder listarlos en tu aplicación.
+#### `$math.getMethods()`
+
+Retorna los métodos que proporciona ng-math-factory.
 Los datos se obtiene en formato JSON con esta estructura:
 
 ```javascript
-$scope.methods =
 [{
     name: 'example',
     sub: [
-        { name: 'Sumar', in : 'formula' },
-        { name: 'Restar', in : 'formula' },
-        { name: 'Multiplicar', in : 'formula' }
-    ],
-    factory: 'exampleFactory'
+        { name: 'Sumar', in : 'formula', readme: "bower_components/ng-math-factory/src/example/readme/sumar.html" },
+        { name: 'Restar', in : 'formula', readme: "bower_components/ng-math-factory/src/example/readme/restar.html" },
+        { name: 'Multiplicar', in : 'formula', readme: "bower_components/ng-math-factory/src/example/readme/multiplicar.html" }
+    ]
 }]
 ```
+
+- **name** - Nombre del modulo.
+- **sub** - Arreglo de JSON de los sub-modulos.
+------ **name** - Nombre del sub-modulo.
+------ **in** - Tipo de entrada que espera el sub-modulo ([ejemplo](#in)).
+------ **readme** - Ruta de un html que contiene una explicación del sub-modulo.
 
 ## in #
 
@@ -108,14 +114,16 @@ app.controller('appCtrl', function($scope, $math) {
     }
 });
 ```
+#### `$math.resolve(method_current, input, route, callback)`
 
 ##### Parameters
 
 | Param                    | Type     | Details
 | ------------------------ | -------- | ---------------------------------------------------------------------------------------
-| **$scope.method_current**| `JSON`   | Es el método actualmente seleccionado.
-| **input**                | `Object` | Son los datos que solicita el método actual un JSON o un String.
-| **"/bower_components"**  | `String` | Es la ruta donde esta la librería ng-math-factory actualmente.
+| **method_current**       |   `JSON`  | Es el método actualmente seleccionado.
+| **input**                |  `Object` | Son los datos que solicita el método actual un JSON o un String.
+| **route**                |  `String` | Es la ruta donde esta la librería ng-math-factory actualmente.
+| **callback**             | `function`| Función donde se envia la respuesta.
 
 
 **$scope.method_current** ejemplo:
