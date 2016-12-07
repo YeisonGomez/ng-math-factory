@@ -30,7 +30,7 @@ var app = angular.module('myapp', ['ng-math-factory']);
 
 ## Uso #
 
-**Paso 1. Obtener métodos**
+### Paso 1. Obtener métodos #
 
 ```javascript
 app.controller('appCtrl', function($scope, $math) {
@@ -89,7 +89,7 @@ Es el tipo de entrada que se va utilizar:
 ]
 ```
 
-**Paso 2. Renderizar métodos**
+### Paso 2. Renderizar métodos #
 
 ```html
 <div ng-repeat="module in methods">
@@ -100,7 +100,7 @@ Es el tipo de entrada que se va utilizar:
 
 Utilizamos la función para seleccionar el método a utilizar.
 
-**Paso 3. Resolver**
+### Paso 3. Resolver #
 
 ```javascript
 app.controller('appCtrl', function($scope, $math) {
@@ -144,7 +144,7 @@ app.controller('appCtrl', function($scope, $math) {
 }
 ```
 
-**Paso 4. Renderizar la respuesta**
+### Paso 4. Renderizar la respuesta #
 
 ```html
 <div ng-include src="resolveHTML"></div>
