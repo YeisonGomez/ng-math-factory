@@ -27,7 +27,23 @@
         };
 
         function point_fixed(input) {
-
+            console.log(input);
+            var x_ant = 0,
+                xr = 0,
+                ea = 0;
+            var point = input.x1;
+            xr = parseFloat(point);
+            for (var i = 0; i < input.iteracion; i++) {
+                x_ant = xr;
+                xr = replaceValues(input.funcion, point);
+                ea = Math.abs((xr - x_ant) / xr) * 100;
+                point = xr;
+            }
+            console.log("xr: " + xr + " error" + ea );
+            return {
+                xr: xr,
+                error: ea
+            };
         }
 
         function bisection(input) {
