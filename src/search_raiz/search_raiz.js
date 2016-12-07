@@ -41,7 +41,7 @@
             }
             console.log("xr: " + xr + " error" + ea );
             return {
-                xr: xr,
+                XR: xr,
                 error: ea
             };
         }

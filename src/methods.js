@@ -28,6 +28,15 @@
                 { name: 'Regla falsa', in : 'formula', readme: routeLib + '/search_raiz/readme/rule_false.html' }
             ],
             factory: 'searchRaiz'
+        }, {
+            name: 'Integración numérica',
+            sub: [
+                { name: 'Simpson 1/3', in : 'formula', readme: routeLib + '/search_raiz/readme/point_fixed.html' },
+                { name: 'Bisección', in : 'formula', readme: routeLib + '/search_raiz/readme/bisection.html' },
+                { name: 'Newton Raphson', in : 'formula', readme: routeLib + '/search_raiz/readme/newton.html' },
+                { name: 'Regla falsa', in : 'formula', readme: routeLib + '/search_raiz/readme/rule_false.html' }
+            ],
+            factory: 'searchRaiz'
         }];
     });
 })();
