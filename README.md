@@ -192,7 +192,10 @@ En el archivo **/ng-math-factory/src/methods.js** agregar el nuevo modulo con su
 					{name: 'Sumar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/sumar.html'}
 					{name: 'Restar', in: 'formula', readme: routeLib + '/mi_nuevo_modulo/readme/restar.html'}
 				],
-				html: { resolve: "/mi_nuevo_modulo/view_mi_nuevo_modulo.html", graphics: "/mi_nuevo_modulo/view_graphics.html" },
+				html: { 
+					resolve: "/mi_nuevo_modulo/view_mi_nuevo_modulo.html", 
+					graphics: "/mi_nuevo_modulo/view_graphics.html" 
+				},
 				factory: "miNuevoModulo",
 				libs: [ /*Opcional*/
 		        	'/mi_nuevo_modulo/lib/libreria.js'
