@@ -9,8 +9,8 @@
             'math.adjust-curve',
             'math.search-raiz'
         ])
-        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', 'searchRaiz',
-            function($q, $methods, adjustCurve, general, searchRaiz) {
+        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', 'searchRaiz', 'numericIntegration',
+            function($q, $methods, adjustCurve, general, searchRaiz, numericIntegration) {
                 return {
                     resolve: resolve,
                     getMethods: getMethods

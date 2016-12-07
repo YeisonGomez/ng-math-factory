@@ -28,6 +28,13 @@
                 { name: 'Regla falsa', in : 'formula', readme: routeLib + '/search_raiz/readme/rule_false.html' }
             ],
             factory: 'searchRaiz'
+        }, {
+            name: 'Integración numérica',
+            sub: [
+                { name: 'Simpson 1/3', in : 'formula', readme: routeLib + '/numeric_integration/readme/simpsonOnethird.html' },
+                { name: 'Regla del trapecio', in : 'formula', readme: routeLib + '/numeric_integration/readme/trapezoid.html' },
+            ],
+            factory: 'numericIntegration'
         }];
     });
 })();
