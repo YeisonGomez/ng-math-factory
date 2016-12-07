@@ -75,7 +75,7 @@
             var x_ant = 0;
             for (var i = 0; i < input.iteracion; i++) {
                 x_ant = xr;
-                fx1 = replaceValues(input.funcion, parseFloat(x1));
+                fx1 = replaceValues(input.funcion, parseFloat(input.x1));
                 fx2 = replaceValues(input.funcion, parseFloat(x2));
                 xr = (parseFloat(x2) - ((fx2 * (parseFloat(x1) - parseFloat(x2))) / (fx1 - fx2)));
                 err = Math.abs((xr - x_ant) / xr) * 100;
