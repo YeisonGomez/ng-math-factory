@@ -6,69 +6,54 @@
     angular.module('ng-math-factory', [
             'math.methods',
             'math.general',
-            'math.adjust-curve',
-            'math.search-raiz'
+            'math.adjust-curve'
         ])
-        .factory('$math', [
-            '$q', '$methods', 'adjustCurve', 'general', 'searchRaiz',
-            function($q, $methods, adjustCurve, general, searchRaiz){
-                return {
-                    resolve: resolve,
-                    getMethods: getMethods
-                };
+        .factory('$math', ['$q', '$methods', 'adjustCurve', 'general', function($q, $methods, adjustCurve, general) {
+            return {
+                resolve: resolve,
+                getMethods: getMethods
+            };
 
-                function resolve(method, input, routeDep, callback) {
-                    var methods_factory = $methods;
-                    for (var i = 0; i < methods_factory.length; i++) {
-                        if (method.name === methods_factory[i].name) {
-                            if (methods_factory[i].libs !== undefined) {
-                                for (var k = 0; k < methods_factory[i].libs.length; k++) {
-                                    var oHead = document.getElementsByTagName('head')[0];
-                                    var oScript = document.createElement('script');
-                                    oScript.type = 'text/javascript';
-                                    oScript.charset = 'utf-8';
-                                    oScript.src = routeDep + routeLib + methods_factory[i].libs[k];
-                                    oHead.appendChild(oScript);
-                                }
-                            }
-                            eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
-                                var html = data[1];
-                                html.resolve = routeDep + routeLib + html.resolve;
-                                html.graphics = (html.graphics === undefined) ? undefined : routeDep + routeLib + html.graphics;
-                                callback(data[0], html);
-                            });
-                            break;
-                        }
+            function resolve(method, input, routeDep, callback) {
+                var methods_factory = $methods;
+                for (var i = 0; i < methods_factory.length; i++) {
+                    if (method.name === methods_factory[i].name) {
+                        eval(methods_factory[i].factory).options(input, method.sub).then(function(data) {
+                            var html = data[1];
+                            html.resolve = routeDep + routeLib + html.resolve;
+                            html.graphics = routeDep + routeLib + html.graphics;
+                            callback(data[0], html);
+                        });
+                        break;
                     }
                 }
-
-                function getMethods() {
-                    return $methods;
-                }
             }
-        ]);
+
+            function getMethods() {
+                return $methods;
+            }
+        }]);
 })();
 
 (function() {
     'use strict';
-
+ 
     angular.module('math.methods', []).factory("$methods", function() {
         var routeLib = "/ng-math-factory/src";
         return [{
             name: 'General',
             sub: [
-                { name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' },
-                { name: 'Derivar', in : 'formula', readme: routeLib + '/general/readme/derive.html' }
+                { name: 'Operación basica', in : 'formula', readme: routeLib + '/general/readme/op_basic.html' }/*,
+                { name: 'Derivar', in : 'formula', readme: routeLib + '/general/readme/derive.html' }*/
             ],
-            factory: 'general',
+            factory: 'general'/*, 
             libs: [
                 '/general/lib/derive.js'
-            ]
+            ]*/
         }, {
             name: 'Ajuste de curvas',
             sub: [
-                { name: 'Mínimos cuadrados', in : 'xy' },
-                { name: 'Interpolación lineal', in : 'xy' }
+                { name: 'Mínimos cuadrados', in : 'xy' }
             ],
             factory: 'adjustCurve'
         }, {
@@ -288,6 +273,7 @@
         }
 
         function bisection(input) {
+            console.log(input);
             var xr = input.x1,
                 fx1, fxr, err;
             var x_ant = 0;

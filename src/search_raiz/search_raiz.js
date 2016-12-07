@@ -31,6 +31,7 @@
         }
 
         function bisection(input) {
+            console.log(input);
             var xr = input.x1,
                 fx1, fxr, err;
             var x_ant = 0;
